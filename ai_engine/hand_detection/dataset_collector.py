@@ -95,7 +95,7 @@ def main():
     print("--------------------------------")
     print("Press a letter key (A-Y, excluding J).")
     print("Press SPACE to capture a sample.")
-    print("Press Q to quit.\n")
+    print("Press ESC to quit.\n")
 
     try:
         with HandLandmarker.create_from_options(options) as landmarker:
@@ -198,7 +198,7 @@ def main():
 
                 cv2.putText(
                     frame,
-                    "SPACE: capture | Q: quit",
+                    "SPACE: capture | ESC: quit",
                     (20, frame.shape[0] - 20),
                     cv2.FONT_HERSHEY_SIMPLEX,
                     0.6,
@@ -213,7 +213,7 @@ def main():
 
                 key = cv2.waitKey(1) & 0xFF
 
-                if key == ord("q"):
+                if key == 27:
                     break
 
                 elif key == ord(" "):
