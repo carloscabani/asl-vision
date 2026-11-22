@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ASL Vision – Deletreo en vivo</title>
+  <style>
+    :root { color-scheme: light dark; --bg:#111; --fg:#f2f2f2; --card:#1c1c1e; --accent:#00e676; }
+    @media (prefers-color-scheme: light) { :root { --bg:#f5f5f7; --fg:#111; --card:#fff; --accent:#00a152; } }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family: system-ui, sans-serif; background:var(--bg); color:var(--fg); }
+    main { max-width: 960px; margin: 0 auto; padding: 16px; display: grid; gap: 16px;
+           grid-template-columns: 1fr; }
+    @media (min-width: 800px) { main { grid-template-columns: 2fr 1fr; } }
+    .card { background: var(--card); border-radius: 12px; padding: 12px; }
+    canvas { width: 100%; border-radius: 8px; background:#000; display:block; }
+    video { display:none; }
+    #letter { font-size: 96px; font-weight: 700; line-height: 1; text-align:center; color: var(--accent); }
+    #confidence { text-align:center; min-height: 1.4em; opacity:.7; }
+    progress { width:100%; height: 10px; }
+    #text { min-height: 3em; font-size: 28px; word-break: break-all; padding: 8px 0; }
+    .row { display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; }
+    button, select { font: inherit; padding: 8px 12px; border-radius: 8px; border: 1px solid #8884;
+                     background: transparent; color: inherit; cursor: pointer; }
+    button.primary { background: var(--accent); color:#000; border:none; font-weight:600; }
+    #status, #note { opacity:.7; font-size: 14px; margin: 4px 0 0; }
+    #translated { font-size: 22px; margin-top: 10px; color: var(--accent); min-height: 1.2em; }
+    label { font-size: 13px; display:flex; flex-direction:column; gap:2px; }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="card">
+      <canvas id="canvas" width="640" height="480"></canvas>
+      <video id="video" playsinline muted></video>
+      <p id="status">Iniciando…</p>
+    </section>
+    <section class="card">
+      <div id="letter">–</div>
+      <div id="confidence"></div>
+      <progress id="progress" value="0" max="1"></progress>
+      <div id="text">…</div>
+      <div class="row">
+        <button id="space">Espacio</button>
+        <button id="back">Borrar</button>
+        <button id="clear">Limpiar</button>
+      </div>
+      <div class="row">
+        <label>Deletreo en
+          <select id="source" aria-label="Idioma en el que deletreas">
+            <option value="es">Español</option>
+            <option value="en">English</option>
+          </select>
+        </label>
+        <label>Hablar en
+          <select id="lang" aria-label="Idioma de la voz">
+            <option value="es-ES">Español</option>
+            <option value="en-US">English</option>
+          </select>
+        </label>
+        <button id="speak" class="primary">Hablar</button>
+      </div>
+      <div id="translated"></div>
+      <p id="note"></p>
+    </section>
+  </main>
+  <script type="module" src="./js/app.js"></script>
+</body>
+</html>
